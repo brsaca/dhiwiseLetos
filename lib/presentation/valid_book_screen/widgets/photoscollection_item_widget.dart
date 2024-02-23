@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:letos/core/app_export.dart';
-import '../models/photoscollection_item_model.dart';
 
 // ignore: must_be_immutable
 class PhotoscollectionItemWidget extends StatelessWidget {
-  PhotoscollectionItemWidget(
-    this.photoscollectionItemModelObj, {
-    Key? key,
-  }) : super(
+  const PhotoscollectionItemWidget({Key? key})
+      : super(
           key: key,
         );
-
-  PhotoscollectionItemModel photoscollectionItemModelObj;
 
   @override
   Widget build(BuildContext context) {

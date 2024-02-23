@@ -39,7 +39,7 @@ class CustomDropDown extends StatelessWidget {
 
   final TextStyle? textStyle;
 
-  final List<SelectionPopupModel>? items;
+  final List<String>? items;
 
   final String? hintText;
 
@@ -61,9 +61,9 @@ class CustomDropDown extends StatelessWidget {
 
   final bool? filled;
 
-  final FormFieldValidator<SelectionPopupModel>? validator;
+  final FormFieldValidator<String>? validator;
 
-  final Function(SelectionPopupModel)? onChanged;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -77,16 +77,16 @@ class CustomDropDown extends StatelessWidget {
 
   Widget get dropDownWidget => SizedBox(
         width: width ?? double.maxFinite,
-        child: DropdownButtonFormField<SelectionPopupModel>(
+        child: DropdownButtonFormField(
           focusNode: focusNode ?? FocusNode(),
           icon: icon,
           autofocus: autofocus!,
           style: textStyle ?? theme.textTheme.bodyLarge,
-          items: items?.map((SelectionPopupModel item) {
-            return DropdownMenuItem<SelectionPopupModel>(
-              value: item,
+          items: items?.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
               child: Text(
-                item.title,
+                value,
                 overflow: TextOverflow.ellipsis,
                 style: hintStyle ?? theme.textTheme.bodyLarge,
               ),
@@ -95,7 +95,7 @@ class CustomDropDown extends StatelessWidget {
           decoration: decoration,
           validator: validator,
           onChanged: (value) {
-            onChanged!(value!);
+            onChanged!(value.toString());
           },
         ),
       );

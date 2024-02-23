@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:letos/core/app_export.dart';
 import 'package:letos/widgets/custom_elevated_button.dart';
-import '../models/booksavedrow_item_model.dart';
 
 // ignore: must_be_immutable
 class BooksavedrowItemWidget extends StatelessWidget {
-  BooksavedrowItemWidget(
-    this.booksavedrowItemModelObj, {
+  BooksavedrowItemWidget({
     Key? key,
     this.onTapBookInfo,
   }) : super(
           key: key,
         );
-
-  BooksavedrowItemModel booksavedrowItemModelObj;
 
   VoidCallback? onTapBookInfo;
 
@@ -46,11 +42,11 @@ class BooksavedrowItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        booksavedrowItemModelObj.savedDate!,
+                        "20/Feb/2024 17:44:23",
                         style: CustomTextStyles.bodyLargeOnSecondaryContainer,
                       ),
                       Text(
-                        booksavedrowItemModelObj.bookId!,
+                        "LTTH71328659",
                         style: CustomTextStyles.bodySmallRed700,
                       ),
                     ],
@@ -61,13 +57,13 @@ class BooksavedrowItemWidget extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        booksavedrowItemModelObj.bookPrice!,
+                        "60",
                         style: CustomTextStyles.bodyLargeRed700,
                       ),
                     ),
                     SizedBox(height: 1.v),
                     Text(
-                      booksavedrowItemModelObj.bookStatus!,
+                      "Nuevo",
                       style: CustomTextStyles.bodyLargeOnSecondaryContainer,
                     ),
                   ],
@@ -106,7 +102,7 @@ class BooksavedrowItemWidget extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(left: 2.h),
                             child: Text(
-                              booksavedrowItemModelObj.bookTitle!,
+                              "Catcher in the Rye",
                               style: CustomTextStyles
                                   .bodyLargeOnSecondaryContainer,
                             ),
@@ -114,7 +110,7 @@ class BooksavedrowItemWidget extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(left: 2.h),
                             child: Text(
-                              booksavedrowItemModelObj.bookAuthor!,
+                              "J.D. Salinger",
                               style: CustomTextStyles.bodySmall12,
                             ),
                           ),
@@ -122,7 +118,7 @@ class BooksavedrowItemWidget extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(left: 2.h),
                             child: Text(
-                              booksavedrowItemModelObj.bookPublisher!,
+                              "P198.00",
                               style: theme.textTheme.bodySmall,
                             ),
                           ),
@@ -130,7 +126,7 @@ class BooksavedrowItemWidget extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(left: 2.h),
                             child: Text(
-                              booksavedrowItemModelObj.bookLanguage!,
+                              "P198.00",
                               style: theme.textTheme.bodySmall,
                             ),
                           ),
@@ -161,7 +157,7 @@ class BooksavedrowItemWidget extends StatelessWidget {
   Widget _buildChangeStatusButton(BuildContext context) {
     return CustomElevatedButton(
       width: 169.h,
-      text: "lbl_apartado".tr,
+      text: "APARTADO",
       buttonStyle: CustomButtonStyles.fillOrange,
     );
   }
@@ -170,7 +166,7 @@ class BooksavedrowItemWidget extends StatelessWidget {
   Widget _buildPrintCodeButton(BuildContext context) {
     return CustomElevatedButton(
       width: 169.h,
-      text: "lbl_printcode".tr,
+      text: "PrintCode",
       leftIcon: Container(
         margin: EdgeInsets.only(right: 10.h),
         child: CustomImageView(
@@ -187,7 +183,7 @@ class BooksavedrowItemWidget extends StatelessWidget {
   Widget _buildDeleteButton(BuildContext context) {
     return CustomElevatedButton(
       width: 169.h,
-      text: "lbl_eliminar".tr,
+      text: "Eliminar",
       margin: EdgeInsets.only(left: 1.h),
       leftIcon: Container(
         margin: EdgeInsets.only(right: 10.h),

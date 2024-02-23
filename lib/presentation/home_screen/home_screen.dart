@@ -3,9 +3,6 @@ import 'package:letos/core/app_export.dart';
 import 'package:letos/widgets/app_bar/appbar_title_image.dart';
 import 'package:letos/widgets/app_bar/appbar_trailing_image.dart';
 import 'package:letos/widgets/app_bar/custom_app_bar.dart';
-import 'bloc/home_bloc.dart';
-import 'models/bookdetailgrid_item_model.dart';
-import 'models/home_model.dart';
 import 'widgets/bookdetailgrid_item_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,16 +10,6 @@ class HomeScreen extends StatelessWidget {
       : super(
           key: key,
         );
-
-  static Widget builder(BuildContext context) {
-    return BlocProvider<HomeBloc>(
-      create: (context) => HomeBloc(HomeState(
-        homeModelObj: HomeModel(),
-      ))
-        ..add(HomeInitialEvent()),
-      child: HomeScreen(),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +31,9 @@ class HomeScreen extends StatelessWidget {
                     padding: EdgeInsets.only(left: 6.h),
                     child: _buildBookAuthorRow(
                       context,
-                      authorName1: "lbl_t_tulo".tr,
-                      authorName2: "lbl_t_tulo".tr,
-                      authorName3: "lbl_t_tulo".tr,
+                      authorName1: "Título",
+                      authorName2: "Título",
+                      authorName3: "Título",
                     ),
                   ),
                   SizedBox(height: 3.v),
@@ -54,9 +41,9 @@ class HomeScreen extends StatelessWidget {
                     padding: EdgeInsets.only(left: 6.h),
                     child: _buildBookAuthorRow(
                       context,
-                      authorName1: "lbl_autor".tr,
-                      authorName2: "lbl_autor".tr,
-                      authorName3: "lbl_autor".tr,
+                      authorName1: "Autor",
+                      authorName2: "Autor",
+                      authorName3: "Autor",
                     ),
                   ),
                   SizedBox(height: 7.v),
@@ -75,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                             borderRadius: BorderRadiusStyle.roundedBorder5,
                           ),
                           child: Text(
-                            "lbl_60".tr,
+                            "60",
                             style:
                                 CustomTextStyles.bodySmallSecondaryContainer11,
                           ),
@@ -87,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                             borderRadius: BorderRadiusStyle.roundedBorder5,
                           ),
                           child: Text(
-                            "lbl_60".tr,
+                            "60",
                             style:
                                 CustomTextStyles.bodySmallSecondaryContainer11,
                           ),
@@ -99,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                             borderRadius: BorderRadiusStyle.roundedBorder5,
                           ),
                           child: Text(
-                            "lbl_60".tr,
+                            "60",
                             style:
                                 CustomTextStyles.bodySmallSecondaryContainer11,
                           ),
@@ -135,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "lbl_hola_brenda2".tr,
+                        text: "Hola Brenda",
                         style: theme.textTheme.headlineSmall,
                       ),
                       TextSpan(
@@ -167,28 +154,18 @@ class HomeScreen extends StatelessWidget {
   Widget _buildBookDetailGrid(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 6.h),
-      child: BlocSelector<HomeBloc, HomeState, HomeModel?>(
-        selector: (state) => state.homeModelObj,
-        builder: (context, homeModelObj) {
-          return GridView.builder(
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisExtent: 251.v,
-              crossAxisCount: 3,
-              mainAxisSpacing: 6.h,
-              crossAxisSpacing: 6.h,
-            ),
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: homeModelObj?.bookdetailgridItemList.length ?? 0,
-            itemBuilder: (context, index) {
-              BookdetailgridItemModel model =
-                  homeModelObj?.bookdetailgridItemList[index] ??
-                      BookdetailgridItemModel();
-              return BookdetailgridItemWidget(
-                model,
-              );
-            },
-          );
+      child: GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisExtent: 251.v,
+          crossAxisCount: 3,
+          mainAxisSpacing: 6.h,
+          crossAxisSpacing: 6.h,
+        ),
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: 12,
+        itemBuilder: (context, index) {
+          return BookdetailgridItemWidget();
         },
       ),
     );

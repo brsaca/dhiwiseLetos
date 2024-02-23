@@ -5,9 +5,6 @@ import 'package:letos/widgets/app_bar/appbar_title_image.dart';
 import 'package:letos/widgets/app_bar/appbar_trailing_image.dart';
 import 'package:letos/widgets/app_bar/custom_app_bar.dart';
 import 'package:letos/widgets/custom_bottom_bar.dart';
-import 'bloc/library_bloc.dart';
-import 'models/booksavedrow_item_model.dart';
-import 'models/library_model.dart';
 import 'widgets/booksavedrow_item_widget.dart';
 
 // ignore_for_file: must_be_immutable
@@ -15,14 +12,6 @@ class LibraryScreen extends StatelessWidget {
   LibraryScreen({Key? key}) : super(key: key);
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
-
-  static Widget builder(BuildContext context) {
-    return BlocProvider<LibraryBloc>(
-        create: (context) =>
-            LibraryBloc(LibraryState(libraryModelObj: LibraryModel()))
-              ..add(LibraryInitialEvent()),
-        child: LibraryScreen());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +43,7 @@ class LibraryScreen extends StatelessWidget {
                       child: RichText(
                           text: TextSpan(children: [
                             TextSpan(
-                                text: "lbl_hola_ilum_nate2".tr,
+                                text: "Hola Ilumínate",
                                 style: theme.textTheme.headlineSmall),
                             TextSpan(text: " ")
                           ]),
@@ -75,24 +64,17 @@ class LibraryScreen extends StatelessWidget {
   Widget _buildBookSavedRow(BuildContext context) {
     return Padding(
         padding: EdgeInsets.only(left: 24.h, right: 10.h),
-        child: BlocSelector<LibraryBloc, LibraryState, LibraryModel?>(
-            selector: (state) => state.libraryModelObj,
-            builder: (context, libraryModelObj) {
-              return ListView.separated(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  separatorBuilder: (context, index) {
-                    return SizedBox(height: 24.v);
-                  },
-                  itemCount: libraryModelObj?.booksavedrowItemList.length ?? 0,
-                  itemBuilder: (context, index) {
-                    BooksavedrowItemModel model =
-                        libraryModelObj?.booksavedrowItemList[index] ??
-                            BooksavedrowItemModel();
-                    return BooksavedrowItemWidget(model, onTapBookInfo: () {
-                      onTapBookInfo(context);
-                    });
-                  });
+        child: ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            separatorBuilder: (context, index) {
+              return SizedBox(height: 24.v);
+            },
+            itemCount: 2,
+            itemBuilder: (context, index) {
+              return BooksavedrowItemWidget(onTapBookInfo: () {
+                onTapBookInfo(context);
+              });
             }));
   }
 
@@ -120,13 +102,10 @@ class LibraryScreen extends StatelessWidget {
   }
 
   ///Handling page based on route
-  Widget getCurrentPage(
-    BuildContext context,
-    String currentRoute,
-  ) {
+  Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.homeOnePage:
-        return HomeOnePage.builder(context);
+        return HomeOnePage();
       default:
         return DefaultWidget();
     }
@@ -134,8 +113,6 @@ class LibraryScreen extends StatelessWidget {
 
   /// Navigates to the bookDetailScreen when the action is triggered.
   onTapBookInfo(BuildContext context) {
-    NavigatorService.pushNamed(
-      AppRoutes.bookDetailScreen,
-    );
+    Navigator.pushNamed(context, AppRoutes.bookDetailScreen);
   }
 }

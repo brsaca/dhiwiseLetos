@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:letos/core/app_export.dart';
-import 'bloc/app_navigation_bloc.dart';
-import 'models/app_navigation_model.dart';
 
 class AppNavigationScreen extends StatelessWidget {
   const AppNavigationScreen({Key? key})
@@ -9,101 +7,87 @@ class AppNavigationScreen extends StatelessWidget {
           key: key,
         );
 
-  static Widget builder(BuildContext context) {
-    return BlocProvider<AppNavigationBloc>(
-      create: (context) => AppNavigationBloc(AppNavigationState(
-        appNavigationModelObj: AppNavigationModel(),
-      ))
-        ..add(AppNavigationInitialEvent()),
-      child: AppNavigationScreen(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppNavigationBloc, AppNavigationState>(
-      builder: (context, state) {
-        return SafeArea(
-          child: Scaffold(
-            backgroundColor: Color(0XFFFFFFFF),
-            body: SizedBox(
-              width: double.maxFinite,
-              child: Column(
-                children: [
-                  _buildAppNavigation(context),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0XFFFFFFFF),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Color(0XFFFFFFFF),
+        body: SizedBox(
+          width: double.maxFinite,
+          child: Column(
+            children: [
+              _buildAppNavigation(context),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0XFFFFFFFF),
+                    ),
+                    child: Column(
+                      children: [
+                        _buildScreenTitle(
+                          context,
+                          screenTitle: "On boarding",
+                          onTapScreenTitle: () => onTapScreenTitle(
+                              context, AppRoutes.onBoardingScreen),
                         ),
-                        child: Column(
-                          children: [
-                            _buildScreenTitle(
-                              context,
-                              screenTitle: "On boarding".tr,
-                              onTapScreenTitle: () =>
-                                  onTapScreenTitle(AppRoutes.onBoardingScreen),
-                            ),
-                            _buildScreenTitle(
-                              context,
-                              screenTitle: "Log In".tr,
-                              onTapScreenTitle: () =>
-                                  onTapScreenTitle(AppRoutes.logInScreen),
-                            ),
-                            _buildScreenTitle(
-                              context,
-                              screenTitle: "Sign Up".tr,
-                              onTapScreenTitle: () =>
-                                  onTapScreenTitle(AppRoutes.signUpScreen),
-                            ),
-                            _buildScreenTitle(
-                              context,
-                              screenTitle: "Home One - Container".tr,
-                              onTapScreenTitle: () => onTapScreenTitle(
-                                  AppRoutes.homeOneContainerScreen),
-                            ),
-                            _buildScreenTitle(
-                              context,
-                              screenTitle: "Book Detail".tr,
-                              onTapScreenTitle: () =>
-                                  onTapScreenTitle(AppRoutes.bookDetailScreen),
-                            ),
-                            _buildScreenTitle(
-                              context,
-                              screenTitle: "Valid Book".tr,
-                              onTapScreenTitle: () =>
-                                  onTapScreenTitle(AppRoutes.validBookScreen),
-                            ),
-                            _buildScreenTitle(
-                              context,
-                              screenTitle: "Library".tr,
-                              onTapScreenTitle: () =>
-                                  onTapScreenTitle(AppRoutes.libraryScreen),
-                            ),
-                            _buildScreenTitle(
-                              context,
-                              screenTitle: "ModalFilters".tr,
-                              onTapScreenTitle: () => onTapScreenTitle(
-                                  AppRoutes.modalfiltersScreen),
-                            ),
-                            _buildScreenTitle(
-                              context,
-                              screenTitle: "Home".tr,
-                              onTapScreenTitle: () =>
-                                  onTapScreenTitle(AppRoutes.homeScreen),
-                            ),
-                          ],
+                        _buildScreenTitle(
+                          context,
+                          screenTitle: "Log In",
+                          onTapScreenTitle: () =>
+                              onTapScreenTitle(context, AppRoutes.logInScreen),
                         ),
-                      ),
+                        _buildScreenTitle(
+                          context,
+                          screenTitle: "Sign Up",
+                          onTapScreenTitle: () =>
+                              onTapScreenTitle(context, AppRoutes.signUpScreen),
+                        ),
+                        _buildScreenTitle(
+                          context,
+                          screenTitle: "Home One - Container",
+                          onTapScreenTitle: () => onTapScreenTitle(
+                              context, AppRoutes.homeOneContainerScreen),
+                        ),
+                        _buildScreenTitle(
+                          context,
+                          screenTitle: "Book Detail",
+                          onTapScreenTitle: () => onTapScreenTitle(
+                              context, AppRoutes.bookDetailScreen),
+                        ),
+                        _buildScreenTitle(
+                          context,
+                          screenTitle: "Valid Book",
+                          onTapScreenTitle: () => onTapScreenTitle(
+                              context, AppRoutes.validBookScreen),
+                        ),
+                        _buildScreenTitle(
+                          context,
+                          screenTitle: "Library",
+                          onTapScreenTitle: () => onTapScreenTitle(
+                              context, AppRoutes.libraryScreen),
+                        ),
+                        _buildScreenTitle(
+                          context,
+                          screenTitle: "ModalFilters",
+                          onTapScreenTitle: () => onTapScreenTitle(
+                              context, AppRoutes.modalfiltersScreen),
+                        ),
+                        _buildScreenTitle(
+                          context,
+                          screenTitle: "Home",
+                          onTapScreenTitle: () =>
+                              onTapScreenTitle(context, AppRoutes.homeScreen),
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -121,7 +105,7 @@ class AppNavigationScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.h),
               child: Text(
-                "App Navigation".tr,
+                "App Navigation",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0XFF000000),
@@ -138,8 +122,7 @@ class AppNavigationScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(left: 20.h),
               child: Text(
-                "Check your app's UI from the below demo screens of your app."
-                    .tr,
+                "Check your app's UI from the below demo screens of your app.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0XFF888888),
@@ -208,7 +191,10 @@ class AppNavigationScreen extends StatelessWidget {
   }
 
   /// Common click event
-  void onTapScreenTitle(String routeName) {
-    NavigatorService.pushNamed(routeName);
+  void onTapScreenTitle(
+    BuildContext context,
+    String routeName,
+  ) {
+    Navigator.pushNamed(context, routeName);
   }
 }

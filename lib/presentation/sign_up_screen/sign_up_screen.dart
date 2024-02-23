@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:letos/core/app_export.dart';
-import 'package:letos/core/utils/validation_functions.dart';
 import 'package:letos/widgets/custom_drop_down.dart';
 import 'package:letos/widgets/custom_elevated_button.dart';
 import 'package:letos/widgets/custom_icon_button.dart';
 import 'package:letos/widgets/custom_text_form_field.dart';
-import 'bloc/sign_up_bloc.dart';
-import 'models/sign_up_model.dart';
 
 // ignore_for_file: must_be_immutable
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  TextEditingController profileImageController = TextEditingController();
 
-  static Widget builder(BuildContext context) {
-    return BlocProvider<SignUpBloc>(
-        create: (context) =>
-            SignUpBloc(SignUpState(signUpModelObj: SignUpModel()))
-              ..add(SignUpInitialEvent()),
-        child: SignUpScreen());
-  }
+  TextEditingController firstNameLibraryController = TextEditingController();
+
+  TextEditingController cityController = TextEditingController();
+
+  List<String> dropdownItemList = ["Item One", "Item Two", "Item Three"];
+
+  TextEditingController phoneController = TextEditingController();
+
+  TextEditingController keyController = TextEditingController();
+
+  TextEditingController passwordController = TextEditingController();
+
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -60,25 +63,17 @@ class SignUpScreen extends StatelessWidget {
                           SizedBox(height: 25.v),
                           _buildCity(context),
                           SizedBox(height: 25.v),
-                          BlocSelector<SignUpBloc, SignUpState, SignUpModel?>(
-                              selector: (state) => state.signUpModelObj,
-                              builder: (context, signUpModelObj) {
-                                return CustomDropDown(
-                                    icon: Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            30.h, 21.v, 18.h, 20.v),
-                                        child: CustomImageView(
-                                            imagePath: ImageConstant.imgArrow,
-                                            height: 17.adaptSize,
-                                            width: 17.adaptSize)),
-                                    hintText: "lbl_estado".tr,
-                                    items:
-                                        signUpModelObj?.dropdownItemList ?? [],
-                                    onChanged: (value) {
-                                      context.read<SignUpBloc>().add(
-                                          ChangeDropDownEvent(value: value));
-                                    });
-                              }),
+                          CustomDropDown(
+                              icon: Container(
+                                  margin: EdgeInsets.fromLTRB(
+                                      30.h, 21.v, 18.h, 20.v),
+                                  child: CustomImageView(
+                                      imagePath: ImageConstant.imgArrow,
+                                      height: 17.adaptSize,
+                                      width: 17.adaptSize)),
+                              hintText: "Estado",
+                              items: dropdownItemList,
+                              onChanged: (value) {}),
                           SizedBox(height: 24.v),
                           _buildAddressField(context),
                           SizedBox(height: 18.v),
@@ -94,7 +89,7 @@ class SignUpScreen extends StatelessWidget {
                                   },
                                   child: Padding(
                                       padding: EdgeInsets.only(right: 9.h),
-                                      child: Text("msg_solicita_la_clave".tr,
+                                      child: Text("Solicita la clave de acceso",
                                           style: CustomTextStyles
                                               .bodyMediumGray600)))),
                           SizedBox(height: 30.v),
@@ -105,34 +100,19 @@ class SignUpScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildProfileImage(BuildContext context) {
-    return BlocSelector<SignUpBloc, SignUpState, TextEditingController?>(
-        selector: (state) => state.profileImageController,
-        builder: (context, profileImageController) {
-          return CustomTextFormField(
-              controller: profileImageController,
-              hintText: "msg_nombre_apellido".tr);
-        });
+    return CustomTextFormField(
+        controller: profileImageController, hintText: "Nombre / Apellido");
   }
 
   /// Section Widget
   Widget _buildFirstNameLibrary(BuildContext context) {
-    return BlocSelector<SignUpBloc, SignUpState, TextEditingController?>(
-        selector: (state) => state.firstNameLibraryController,
-        builder: (context, firstNameLibraryController) {
-          return CustomTextFormField(
-              controller: firstNameLibraryController,
-              hintText: "msg_nombre_librer_a".tr);
-        });
+    return CustomTextFormField(
+        controller: firstNameLibraryController, hintText: "Nombre / Librería");
   }
 
   /// Section Widget
   Widget _buildCity(BuildContext context) {
-    return BlocSelector<SignUpBloc, SignUpState, TextEditingController?>(
-        selector: (state) => state.cityController,
-        builder: (context, cityController) {
-          return CustomTextFormField(
-              controller: cityController, hintText: "lbl_ciudad".tr);
-        });
+    return CustomTextFormField(controller: cityController, hintText: "Ciudad");
   }
 
   /// Section Widget
@@ -148,8 +128,7 @@ class SignUpScreen extends StatelessWidget {
             children: [
               Padding(
                   padding: EdgeInsets.only(left: 10.h, bottom: 2.v),
-                  child: Text("lbl_direcci_n".tr,
-                      style: theme.textTheme.bodyLarge)),
+                  child: Text("Dirección", style: theme.textTheme.bodyLarge)),
               Padding(
                   padding: EdgeInsets.only(top: 3.v, bottom: 2.v),
                   child: CustomIconButton(
@@ -161,60 +140,38 @@ class SignUpScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildPhone(BuildContext context) {
-    return BlocSelector<SignUpBloc, SignUpState, TextEditingController?>(
-        selector: (state) => state.phoneController,
-        builder: (context, phoneController) {
-          return CustomTextFormField(
-              controller: phoneController, hintText: "lbl_tel_fono".tr);
-        });
+    return CustomTextFormField(
+        controller: phoneController, hintText: "Teléfono");
   }
 
   /// Section Widget
   Widget _buildKey(BuildContext context) {
-    return BlocSelector<SignUpBloc, SignUpState, TextEditingController?>(
-        selector: (state) => state.keyController,
-        builder: (context, keyController) {
-          return CustomTextFormField(
-              controller: keyController, hintText: "lbl_clave".tr);
-        });
+    return CustomTextFormField(controller: keyController, hintText: "Clave");
   }
 
   /// Section Widget
   Widget _buildPassword(BuildContext context) {
-    return BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
-      return CustomTextFormField(
-          controller: state.passwordController,
-          hintText: "lbl_contrase_a".tr,
-          textInputAction: TextInputAction.done,
-          textInputType: TextInputType.visiblePassword,
-          suffix: InkWell(
-              onTap: () {
-                context.read<SignUpBloc>().add(ChangePasswordVisibilityEvent(
-                    value: !state.isShowPassword));
-              },
-              child: Container(
-                  margin: EdgeInsets.fromLTRB(30.h, 20.v, 17.h, 20.v),
-                  child: CustomImageView(
-                      imagePath: ImageConstant.imgBieyefill,
-                      height: 18.v,
-                      width: 19.h))),
-          suffixConstraints: BoxConstraints(maxHeight: 58.v),
-          validator: (value) {
-            if (value == null || (!isValidPassword(value, isRequired: true))) {
-              return "err_msg_please_enter_valid_password".tr;
-            }
-            return null;
-          },
-          obscureText: state.isShowPassword,
-          contentPadding: EdgeInsets.only(left: 29.h, top: 19.v, bottom: 19.v));
-    });
+    return CustomTextFormField(
+        controller: passwordController,
+        hintText: "Contraseña",
+        textInputAction: TextInputAction.done,
+        textInputType: TextInputType.visiblePassword,
+        suffix: Container(
+            margin: EdgeInsets.fromLTRB(30.h, 20.v, 17.h, 20.v),
+            child: CustomImageView(
+                imagePath: ImageConstant.imgBieyefill,
+                height: 18.v,
+                width: 19.h)),
+        suffixConstraints: BoxConstraints(maxHeight: 58.v),
+        obscureText: true,
+        contentPadding: EdgeInsets.only(left: 29.h, top: 19.v, bottom: 19.v));
   }
 
   /// Section Widget
   Widget _buildValidar(BuildContext context) {
     return CustomElevatedButton(
         height: 50.v,
-        text: "lbl_validar".tr,
+        text: "Validar",
         margin: EdgeInsets.only(left: 34.h, right: 31.h, bottom: 37.v),
         buttonTextStyle: CustomTextStyles.bodyLargeSecondaryContainer18,
         onPressed: () {
@@ -224,15 +181,11 @@ class SignUpScreen extends StatelessWidget {
 
   /// Navigates to the logInScreen when the action is triggered.
   onTapTxtSolicitaLaClave(BuildContext context) {
-    NavigatorService.pushNamed(
-      AppRoutes.logInScreen,
-    );
+    Navigator.pushNamed(context, AppRoutes.logInScreen);
   }
 
   /// Navigates to the homeOneContainerScreen when the action is triggered.
   onTapValidar(BuildContext context) {
-    NavigatorService.pushNamed(
-      AppRoutes.homeOneContainerScreen,
-    );
+    Navigator.pushNamed(context, AppRoutes.homeOneContainerScreen);
   }
 }

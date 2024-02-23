@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:letos/core/app_export.dart';
 import 'package:letos/widgets/custom_elevated_button.dart';
-import '../models/bookrow_item_model.dart';
 
 // ignore: must_be_immutable
 class BookrowItemWidget extends StatelessWidget {
-  BookrowItemWidget(
-    this.bookrowItemModelObj, {
-    Key? key,
-  }) : super(
+  const BookrowItemWidget({Key? key})
+      : super(
           key: key,
         );
-
-  BookrowItemModel bookrowItemModelObj;
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +40,14 @@ class BookrowItemWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 2.h),
                   child: Text(
-                    bookrowItemModelObj.bookTitle!,
+                    "Título del libro",
                     style: CustomTextStyles.bodyLargeOnSecondaryContainer,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 2.h),
                   child: Text(
-                    bookrowItemModelObj.bookAuthor!,
+                    "Autor",
                     style: CustomTextStyles.bodySmall12,
                   ),
                 ),
@@ -60,42 +55,42 @@ class BookrowItemWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 2.h),
                   child: Text(
-                    bookrowItemModelObj.bookPublisher!,
+                    "Publisher",
                     style: theme.textTheme.bodySmall,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 2.h),
                   child: Text(
-                    bookrowItemModelObj.bookDatePublished!,
+                    "Date Published",
                     style: theme.textTheme.bodySmall,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 2.h),
                   child: Text(
-                    bookrowItemModelObj.bookISBN10!,
+                    "ISBN",
                     style: theme.textTheme.bodySmall,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 2.h),
                   child: Text(
-                    bookrowItemModelObj.bookISBN13!,
+                    "ISBN13",
                     style: theme.textTheme.bodySmall,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 2.h),
                   child: Text(
-                    bookrowItemModelObj.bookFormat!,
+                    "Formato",
                     style: theme.textTheme.bodySmall,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 2.h),
                   child: Text(
-                    bookrowItemModelObj.bookLanguage!,
+                    "Lenguaje",
                     style: theme.textTheme.bodySmall,
                   ),
                 ),
@@ -113,7 +108,7 @@ class BookrowItemWidget extends StatelessWidget {
   Widget _buildValidateButton(BuildContext context) {
     return CustomElevatedButton(
       width: 169.h,
-      text: "lbl_validar".tr,
+      text: "Validar",
     );
   }
 }

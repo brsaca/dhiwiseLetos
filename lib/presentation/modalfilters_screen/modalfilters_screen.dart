@@ -4,25 +4,16 @@ import 'package:letos/widgets/custom_elevated_button.dart';
 import 'package:letos/widgets/custom_icon_button.dart';
 import 'package:letos/widgets/custom_text_form_field.dart';
 import '../modalfilters_screen/widgets/typefilters_item_widget.dart';
-import 'bloc/modalfilters_bloc.dart';
-import 'models/modalfilters_model.dart';
-import 'models/typefilters_item_model.dart';
 
 class ModalfiltersScreen extends StatelessWidget {
-  const ModalfiltersScreen({Key? key})
+  ModalfiltersScreen({Key? key})
       : super(
           key: key,
         );
 
-  static Widget builder(BuildContext context) {
-    return BlocProvider<ModalfiltersBloc>(
-      create: (context) => ModalfiltersBloc(ModalfiltersState(
-        modalfiltersModelObj: ModalfiltersModel(),
-      ))
-        ..add(ModalfiltersInitialEvent()),
-      child: ModalfiltersScreen(),
-    );
-  }
+  TextEditingController authorController = TextEditingController();
+
+  TextEditingController titleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +33,7 @@ class ModalfiltersScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 2.h),
                 child: Text(
-                  "lbl_filtros".tr,
+                  "Filtros",
                   style: CustomTextStyles.bodyLargeErrorContainer,
                 ),
               ),
@@ -69,31 +60,10 @@ class ModalfiltersScreen extends StatelessWidget {
   Widget _buildTypeFilters(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 2.h),
-      child:
-          BlocSelector<ModalfiltersBloc, ModalfiltersState, ModalfiltersModel?>(
-        selector: (state) => state.modalfiltersModelObj,
-        builder: (context, modalfiltersModelObj) {
-          return Wrap(
-            runSpacing: 13.v,
-            spacing: 13.h,
-            children: List<Widget>.generate(
-              modalfiltersModelObj?.typefiltersItemList.length ?? 0,
-              (index) {
-                TypefiltersItemModel model =
-                    modalfiltersModelObj?.typefiltersItemList[index] ??
-                        TypefiltersItemModel();
-
-                return TypefiltersItemWidget(
-                  model,
-                  onSelectedChipView: (value) {
-                    context.read<ModalfiltersBloc>().add(
-                        UpdateChipViewEvent(index: index, isSelected: value));
-                  },
-                );
-              },
-            ),
-          );
-        },
+      child: Wrap(
+        runSpacing: 13.v,
+        spacing: 13.h,
+        children: List<Widget>.generate(2, (index) => TypefiltersItemWidget()),
       ),
     );
   }
@@ -102,15 +72,9 @@ class ModalfiltersScreen extends StatelessWidget {
   Widget _buildAuthor(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 2.h),
-      child: BlocSelector<ModalfiltersBloc, ModalfiltersState,
-          TextEditingController?>(
-        selector: (state) => state.authorController,
-        builder: (context, authorController) {
-          return CustomTextFormField(
-            controller: authorController,
-            hintText: "lbl_autor".tr,
-          );
-        },
+      child: CustomTextFormField(
+        controller: authorController,
+        hintText: "Autor",
       ),
     );
   }
@@ -119,16 +83,10 @@ class ModalfiltersScreen extends StatelessWidget {
   Widget _buildTitle(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 2.h),
-      child: BlocSelector<ModalfiltersBloc, ModalfiltersState,
-          TextEditingController?>(
-        selector: (state) => state.titleController,
-        builder: (context, titleController) {
-          return CustomTextFormField(
-            controller: titleController,
-            hintText: "lbl_t_tulo".tr,
-            textInputAction: TextInputAction.done,
-          );
-        },
+      child: CustomTextFormField(
+        controller: titleController,
+        hintText: "Título",
+        textInputAction: TextInputAction.done,
       ),
     );
   }
@@ -153,7 +111,7 @@ class ModalfiltersScreen extends StatelessWidget {
               bottom: 1.v,
             ),
             child: Text(
-              "lbl_editorial".tr,
+              "Editorial",
               style: theme.textTheme.bodyLarge,
             ),
           ),
@@ -191,7 +149,7 @@ class ModalfiltersScreen extends StatelessWidget {
               top: 2.v,
             ),
             child: Text(
-              "lbl_lenguaje".tr,
+              "Lenguaje",
               style: theme.textTheme.bodyLarge,
             ),
           ),
@@ -211,7 +169,7 @@ class ModalfiltersScreen extends StatelessWidget {
     return CustomElevatedButton(
       height: 49.v,
       width: 154.h,
-      text: "lbl_limpiar".tr,
+      text: "Limpiar",
       margin: EdgeInsets.only(bottom: 2.v),
       buttonStyle: CustomButtonStyles.fillGrayTL10,
     );
@@ -222,7 +180,7 @@ class ModalfiltersScreen extends StatelessWidget {
     return CustomElevatedButton(
       height: 49.v,
       width: 144.h,
-      text: "lbl_buscar".tr,
+      text: "Buscar",
       margin: EdgeInsets.only(left: 14.h),
     );
   }

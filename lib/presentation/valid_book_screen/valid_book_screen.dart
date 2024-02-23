@@ -3,26 +3,45 @@ import 'package:letos/core/app_export.dart';
 import 'package:letos/widgets/custom_drop_down.dart';
 import 'package:letos/widgets/custom_elevated_button.dart';
 import 'package:letos/widgets/custom_text_form_field.dart';
-import 'bloc/valid_book_bloc.dart';
-import 'models/photoscollection_item_model.dart';
-import 'models/valid_book_model.dart';
 import 'widgets/photoscollection_item_widget.dart';
 
 class ValidBookScreen extends StatelessWidget {
-  const ValidBookScreen({Key? key})
+  ValidBookScreen({Key? key})
       : super(
           key: key,
         );
 
-  static Widget builder(BuildContext context) {
-    return BlocProvider<ValidBookBloc>(
-      create: (context) => ValidBookBloc(ValidBookState(
-        validBookModelObj: ValidBookModel(),
-      ))
-        ..add(ValidBookInitialEvent()),
-      child: ValidBookScreen(),
-    );
-  }
+  TextEditingController fiftyController = TextEditingController();
+
+  TextEditingController fiftyController1 = TextEditingController();
+
+  TextEditingController fortyNineController = TextEditingController();
+
+  TextEditingController fortyNineController1 = TextEditingController();
+
+  List<String> dropdownItemList = [
+    "Item One",
+    "Item Two",
+    "Item Three",
+  ];
+
+  TextEditingController commentsFieldController = TextEditingController();
+
+  TextEditingController titleFieldController = TextEditingController();
+
+  TextEditingController autorFieldController = TextEditingController();
+
+  TextEditingController editorialFieldController = TextEditingController();
+
+  TextEditingController dimensionsFieldController = TextEditingController();
+
+  TextEditingController fiftyTwoController = TextEditingController();
+
+  TextEditingController fiftyTwoController1 = TextEditingController();
+
+  TextEditingController fiftyOneController = TextEditingController();
+
+  TextEditingController fiftyOneController1 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,30 +72,19 @@ class ValidBookScreen extends StatelessWidget {
                             left: 30.h,
                             right: 23.h,
                           ),
-                          child: BlocSelector<ValidBookBloc, ValidBookState,
-                              ValidBookModel?>(
-                            selector: (state) => state.validBookModelObj,
-                            builder: (context, validBookModelObj) {
-                              return CustomDropDown(
-                                icon: Container(
-                                  margin: EdgeInsets.fromLTRB(
-                                      30.h, 28.v, 16.h, 18.v),
-                                  child: CustomImageView(
-                                    imagePath: ImageConstant.imgArrow,
-                                    height: 12.v,
-                                    width: 16.h,
-                                  ),
-                                ),
-                                hintText: "lbl_lenguaje".tr,
-                                items:
-                                    validBookModelObj?.dropdownItemList ?? [],
-                                onChanged: (value) {
-                                  context
-                                      .read<ValidBookBloc>()
-                                      .add(ChangeDropDownEvent(value: value));
-                                },
-                              );
-                            },
+                          child: CustomDropDown(
+                            icon: Container(
+                              margin:
+                                  EdgeInsets.fromLTRB(30.h, 28.v, 16.h, 18.v),
+                              child: CustomImageView(
+                                imagePath: ImageConstant.imgArrow,
+                                height: 12.v,
+                                width: 16.h,
+                              ),
+                            ),
+                            hintText: "Lenguaje",
+                            items: dropdownItemList,
+                            onChanged: (value) {},
                           ),
                         ),
                         SizedBox(height: 16.v),
@@ -113,31 +121,20 @@ class ValidBookScreen extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: SizedBox(
         height: 157.v,
-        child: BlocSelector<ValidBookBloc, ValidBookState, ValidBookModel?>(
-          selector: (state) => state.validBookModelObj,
-          builder: (context, validBookModelObj) {
-            return ListView.separated(
-              padding: EdgeInsets.only(left: 46.h),
-              scrollDirection: Axis.horizontal,
-              separatorBuilder: (
-                context,
-                index,
-              ) {
-                return SizedBox(
-                  width: 18.h,
-                );
-              },
-              itemCount:
-                  validBookModelObj?.photoscollectionItemList.length ?? 0,
-              itemBuilder: (context, index) {
-                PhotoscollectionItemModel model =
-                    validBookModelObj?.photoscollectionItemList[index] ??
-                        PhotoscollectionItemModel();
-                return PhotoscollectionItemWidget(
-                  model,
-                );
-              },
+        child: ListView.separated(
+          padding: EdgeInsets.only(left: 46.h),
+          scrollDirection: Axis.horizontal,
+          separatorBuilder: (
+            context,
+            index,
+          ) {
+            return SizedBox(
+              width: 18.h,
             );
+          },
+          itemCount: 3,
+          itemBuilder: (context, index) {
+            return PhotoscollectionItemWidget();
           },
         ),
       ),
@@ -148,7 +145,7 @@ class ValidBookScreen extends StatelessWidget {
   Widget _buildCamera(BuildContext context) {
     return CustomElevatedButton(
       height: 49.v,
-      text: "lbl_c_mara".tr,
+      text: "Cámara",
       margin: EdgeInsets.only(
         left: 30.h,
         right: 24.h,
@@ -158,15 +155,10 @@ class ValidBookScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildFifty(BuildContext context) {
-    return BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-      selector: (state) => state.fiftyController,
-      builder: (context, fiftyController) {
-        return CustomTextFormField(
-          width: 140.h,
-          controller: fiftyController,
-          hintText: "lbl_vol_menes".tr,
-        );
-      },
+    return CustomTextFormField(
+      width: 140.h,
+      controller: fiftyController,
+      hintText: "Volúmenes",
     );
   }
 
@@ -174,16 +166,10 @@ class ValidBookScreen extends StatelessWidget {
   Widget _buildFifty1(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 30.h),
-      child:
-          BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-        selector: (state) => state.fiftyController1,
-        builder: (context, fiftyController1) {
-          return CustomTextFormField(
-            width: 140.h,
-            controller: fiftyController1,
-            hintText: "lbl_precio".tr,
-          );
-        },
+      child: CustomTextFormField(
+        width: 140.h,
+        controller: fiftyController1,
+        hintText: " Precio",
       ),
     );
   }
@@ -207,15 +193,10 @@ class ValidBookScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildFortyNine(BuildContext context) {
-    return BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-      selector: (state) => state.fortyNineController,
-      builder: (context, fortyNineController) {
-        return CustomTextFormField(
-          width: 140.h,
-          controller: fortyNineController,
-          hintText: "lbl_condici_n".tr,
-        );
-      },
+    return CustomTextFormField(
+      width: 140.h,
+      controller: fortyNineController,
+      hintText: "Condición",
     );
   }
 
@@ -223,16 +204,10 @@ class ValidBookScreen extends StatelessWidget {
   Widget _buildFortyNine1(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 30.h),
-      child:
-          BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-        selector: (state) => state.fortyNineController1,
-        builder: (context, fortyNineController1) {
-          return CustomTextFormField(
-            width: 140.h,
-            controller: fortyNineController1,
-            hintText: "lbl_formato".tr,
-          );
-        },
+      child: CustomTextFormField(
+        width: 140.h,
+        controller: fortyNineController1,
+        hintText: "Formato",
       ),
     );
   }
@@ -261,15 +236,9 @@ class ValidBookScreen extends StatelessWidget {
         left: 30.h,
         right: 23.h,
       ),
-      child:
-          BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-        selector: (state) => state.commentsFieldController,
-        builder: (context, commentsFieldController) {
-          return CustomTextFormField(
-            controller: commentsFieldController,
-            hintText: "lbl_comentarios".tr,
-          );
-        },
+      child: CustomTextFormField(
+        controller: commentsFieldController,
+        hintText: "Comentarios",
       ),
     );
   }
@@ -281,15 +250,9 @@ class ValidBookScreen extends StatelessWidget {
         left: 30.h,
         right: 23.h,
       ),
-      child:
-          BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-        selector: (state) => state.titleFieldController,
-        builder: (context, titleFieldController) {
-          return CustomTextFormField(
-            controller: titleFieldController,
-            hintText: "lbl_t_tulo".tr,
-          );
-        },
+      child: CustomTextFormField(
+        controller: titleFieldController,
+        hintText: "Título",
       ),
     );
   }
@@ -301,15 +264,9 @@ class ValidBookScreen extends StatelessWidget {
         left: 30.h,
         right: 24.h,
       ),
-      child:
-          BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-        selector: (state) => state.autorFieldController,
-        builder: (context, autorFieldController) {
-          return CustomTextFormField(
-            controller: autorFieldController,
-            hintText: "lbl_autor".tr,
-          );
-        },
+      child: CustomTextFormField(
+        controller: autorFieldController,
+        hintText: "Autor",
       ),
     );
   }
@@ -321,15 +278,9 @@ class ValidBookScreen extends StatelessWidget {
         left: 30.h,
         right: 23.h,
       ),
-      child:
-          BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-        selector: (state) => state.editorialFieldController,
-        builder: (context, editorialFieldController) {
-          return CustomTextFormField(
-            controller: editorialFieldController,
-            hintText: "lbl_editorial".tr,
-          );
-        },
+      child: CustomTextFormField(
+        controller: editorialFieldController,
+        hintText: "Editorial",
       ),
     );
   }
@@ -341,34 +292,23 @@ class ValidBookScreen extends StatelessWidget {
         left: 30.h,
         right: 24.h,
       ),
-      child:
-          BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-        selector: (state) => state.dimensionsFieldController,
-        builder: (context, dimensionsFieldController) {
-          return CustomTextFormField(
-            controller: dimensionsFieldController,
-            hintText: "lbl_dimensiones".tr,
-          );
-        },
+      child: CustomTextFormField(
+        controller: dimensionsFieldController,
+        hintText: "Dimensiones",
       ),
     );
   }
 
   /// Section Widget
   Widget _buildFiftyTwo(BuildContext context) {
-    return BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-      selector: (state) => state.fiftyTwoController,
-      builder: (context, fiftyTwoController) {
-        return CustomTextFormField(
-          width: 140.h,
-          controller: fiftyTwoController,
-          hintText: "msg_a_o_de_publicaci_n2".tr,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 5.h,
-            vertical: 19.v,
-          ),
-        );
-      },
+    return CustomTextFormField(
+      width: 140.h,
+      controller: fiftyTwoController,
+      hintText: "Año de Publicación",
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 5.h,
+        vertical: 19.v,
+      ),
     );
   }
 
@@ -376,16 +316,10 @@ class ValidBookScreen extends StatelessWidget {
   Widget _buildFiftyTwo1(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 30.h),
-      child:
-          BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-        selector: (state) => state.fiftyTwoController1,
-        builder: (context, fiftyTwoController1) {
-          return CustomTextFormField(
-            width: 140.h,
-            controller: fiftyTwoController1,
-            hintText: "lbl_p_ginas2".tr,
-          );
-        },
+      child: CustomTextFormField(
+        width: 140.h,
+        controller: fiftyTwoController1,
+        hintText: "Páginas",
       ),
     );
   }
@@ -409,15 +343,10 @@ class ValidBookScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildFiftyOne(BuildContext context) {
-    return BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-      selector: (state) => state.fiftyOneController,
-      builder: (context, fiftyOneController) {
-        return CustomTextFormField(
-          width: 140.h,
-          controller: fiftyOneController,
-          hintText: "lbl_isbn_133".tr,
-        );
-      },
+    return CustomTextFormField(
+      width: 140.h,
+      controller: fiftyOneController,
+      hintText: "ISBN_13",
     );
   }
 
@@ -425,17 +354,11 @@ class ValidBookScreen extends StatelessWidget {
   Widget _buildFiftyOne1(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: 30.h),
-      child:
-          BlocSelector<ValidBookBloc, ValidBookState, TextEditingController?>(
-        selector: (state) => state.fiftyOneController1,
-        builder: (context, fiftyOneController1) {
-          return CustomTextFormField(
-            width: 140.h,
-            controller: fiftyOneController1,
-            hintText: "lbl_isbn_102".tr,
-            textInputAction: TextInputAction.done,
-          );
-        },
+      child: CustomTextFormField(
+        width: 140.h,
+        controller: fiftyOneController1,
+        hintText: "ISBN_10",
+        textInputAction: TextInputAction.done,
       ),
     );
   }
@@ -461,7 +384,7 @@ class ValidBookScreen extends StatelessWidget {
   Widget _buildValidar(BuildContext context) {
     return CustomElevatedButton(
       height: 49.v,
-      text: "lbl_validar".tr,
+      text: "Validar",
       margin: EdgeInsets.only(
         left: 30.h,
         right: 22.h,

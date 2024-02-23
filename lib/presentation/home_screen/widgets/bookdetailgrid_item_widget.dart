@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:letos/core/app_export.dart';
-import '../models/bookdetailgrid_item_model.dart';
 
 // ignore: must_be_immutable
 class BookdetailgridItemWidget extends StatelessWidget {
-  BookdetailgridItemWidget(
-    this.bookdetailgridItemModelObj, {
-    Key? key,
-  }) : super(
+  const BookdetailgridItemWidget({Key? key})
+      : super(
           key: key,
         );
-
-  BookdetailgridItemModel bookdetailgridItemModelObj;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +20,7 @@ class BookdetailgridItemWidget extends StatelessWidget {
             alignment: Alignment.topRight,
             children: [
               CustomImageView(
-                imagePath: bookdetailgridItemModelObj?.bookImage,
+                imagePath: ImageConstant.imgBookimage,
                 height: 187.v,
                 width: 108.h,
                 radius: BorderRadius.circular(
@@ -42,7 +37,7 @@ class BookdetailgridItemWidget extends StatelessWidget {
                     borderRadius: BorderRadiusStyle.customBorderBL10,
                   ),
                   child: Text(
-                    bookdetailgridItemModelObj.bookStatus!,
+                    "NUEVO",
                     style: CustomTextStyles.bodySmallSecondaryContainer,
                   ),
                 ),
@@ -52,12 +47,12 @@ class BookdetailgridItemWidget extends StatelessWidget {
         ),
         SizedBox(height: 4.v),
         Text(
-          bookdetailgridItemModelObj.bookTitle!,
+          "Título",
           style: theme.textTheme.bodyMedium,
         ),
         SizedBox(height: 3.v),
         Text(
-          bookdetailgridItemModelObj.bookAuthor!,
+          "Autor",
           style: CustomTextStyles.bodySmall12,
         ),
         SizedBox(height: 6.v),
@@ -71,7 +66,7 @@ class BookdetailgridItemWidget extends StatelessWidget {
             borderRadius: BorderRadiusStyle.roundedBorder5,
           ),
           child: Text(
-            bookdetailgridItemModelObj.bookPrice!,
+            "60",
             style: CustomTextStyles.bodySmallSecondaryContainer11,
           ),
         ),
